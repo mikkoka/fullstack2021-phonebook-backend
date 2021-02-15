@@ -96,7 +96,6 @@ app.post('/api/persons', (req, resp, next) => {
   newPerson
     .save()
     .then(result => {
-      persons = persons.concat(result)
       resp.json(result)
     })
     .catch(err => next(err))
