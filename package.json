@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui": "rm -rf build && cd ../fullstack-hy2021/osa2/puhelinluettelo/ && npm run build --prod && cp -r build ../../../fullstack2021-phonebook-backend"
+    "build:ui": "rm -rf build && cd ../fullstack-hy2021/osa2/puhelinluettelo/ && npm run build --prod && cp -r build ../../../fullstack2021-phonebook-backend",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^7.20.0",
     "nodemon": "^2.0.7"
   }
 }

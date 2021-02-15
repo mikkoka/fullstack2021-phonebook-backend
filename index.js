@@ -36,13 +36,13 @@ const personErrorHandler = (err, req, resp, next) => {
 
 app.get('/api/persons/:id', (req, resp, next) => {
   Person
-  .findById(req.params.id)
-  .then(p => {
-    if (p)
-      resp.json(p)
-    else
-      resp.status(404).json({error : 'not found'})
-  })
+    .findById(req.params.id)
+    .then(p => {
+      if (p)
+        resp.json(p)
+      else
+        resp.status(404).json({ error : 'not found' })
+    })
     .catch(err => next(err))
 })
 
@@ -55,16 +55,16 @@ const deleteErrorHandler = (err, req, resp, next) => {
     return resp.status(400).json({ error: 'malformatted id' })
   }
 }
-app.delete('/api/persons/:id', (req, resp) => {
+app.delete('/api/persons/:id', (req, resp, next) => {
 
   Person
     .findByIdAndRemove(req.params.id)
-    .then(result => 
-      {if (result) 
-        resp.status(204).end()
-      else 
-        resp.status(404).end()})
-        .catch(err => next(err))
+    .then(result =>
+    {if (result)
+      resp.status(204).end()
+    else
+      resp.status(404).end()})
+    .catch(err => next(err))
 })
 
 app.use(deleteErrorHandler)
@@ -72,16 +72,16 @@ app.use(deleteErrorHandler)
 app.put('/api/persons/:id', (req, resp) => {
   Person
     .findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(updated => resp.json(updated)) 
+    .then(updated => resp.json(updated))
 
 
 })
 
 const postErrorHandler = (err, req, resp, next) => {
   console.error(err.message)
-    return resp
-      .status(400)
-      .json(err.message)
+  return resp
+    .status(400)
+    .json(err.message)
 }
 
 app.post('/api/persons', (req, resp, next) => {
@@ -89,7 +89,7 @@ app.post('/api/persons', (req, resp, next) => {
   if (!req.body.name || !req.body.number) {
     return resp
       .status(400)
-      .json({'error': 'name or number not defined'})
+      .json({ 'error': 'name or number not defined' })
   }
 
   const newPerson = new Person(req.body)
@@ -106,4 +106,4 @@ app.use(postErrorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT)
-console.log(`Server running on port ${PORT}`);
+console.log(`Server running on port ${PORT}`)
